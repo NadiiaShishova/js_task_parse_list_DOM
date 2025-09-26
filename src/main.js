@@ -6,29 +6,29 @@ function parseSalary(salary) {
   return Number(salary.replace(/[^0-9]/g, '')) || 0;
 }
 
-function sortList(employeeList) {
-  if (!employeeList) {
+function sortList(list) {
+  if (!list) {
     return;
   }
 
-  const items = Array.from(employeeList.children);
+  const items = Array.from(list.children);
 
   items.sort((a, b) => {
     const salaryA = parseSalary(a.dataset.salary);
     const salaryB = parseSalary(b.dataset.salary);
 
-    return salaryA - salaryB;
+    return salaryB - salaryA;
   });
 
-  items.forEach((item) => employeeList.appendChild(item));
+  items.forEach((item) => list.appendChild(item));
 }
 
-function getEmployees(employeeList) {
-  if (!employeeList) {
+function getEmployees(list) {
+  if (!list) {
     return [];
   }
 
-  return Array.from(employeeList.children).map((item) => ({
+  return Array.from(list.children).map((item) => ({
     name: item.dataset.name || '',
     position: item.dataset.position || '',
     salary: parseSalary(item.dataset.salary),
@@ -37,12 +37,12 @@ function getEmployees(employeeList) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const employeesList = document.getElementById('employees-list');
+  const list = document.getElementById('list');
 
-  if (employeesList) {
-    sortList(employeesList);
+  if (list) {
+    sortList(list);
 
-    const employees = getEmployees(employeesList);
+    const employees = getEmployees(list);
 
     const output = document.getElementById('employees-output');
 
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
       output.innerHTML = employees
         .map(
           (emp) => `<li>${emp.name} – ${emp.position}, $${emp.salary},
-          ${emp.age} лет</li>`,
+            ${emp.age} </li>`,
         )
         .join('');
     }
