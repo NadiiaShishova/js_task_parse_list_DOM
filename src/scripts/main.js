@@ -5,7 +5,7 @@ function parseSalary(salary) {
     return 0;
   }
 
-  return Number(salary.replace(/[^0-9]/g, '')) || 0;
+  return Number(salary.replace(/[^0-9.-]+/g, ''));
 }
 
 function sortList(list) {
